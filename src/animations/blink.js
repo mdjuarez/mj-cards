@@ -1,0 +1,11 @@
+export const css = `
+.animated-blink {
+  animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+`;
