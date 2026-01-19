@@ -1,0 +1,11 @@
+{
+  "name": "mj-cards",
+  "private": true,
+  "version": "0.1.0",
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  },
+  "scripts": {
+    "build": "esbuild src/index.js --bundle --format=esm --target=es2020 --outfile=dist/mj-cards.js"
+  }
+}
