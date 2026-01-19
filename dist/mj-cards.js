@@ -845,11 +845,6 @@ var init_zoom = __esm({
   }
 });
 
-// src/mdi.js
-var mdiPaths = {
-  mdiHelp: "M12,2A10,10 0 0,0 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,19H10V17H12V19M12,16H10C10,13.5 13,13.25 13,11C13,9.9 12.1,9 11,9C9.9,9 9,9.9 9,11H7C7,8.79 8.79,7 11,7C13.21,7 15,8.79 15,11C15,13.75 12,14 12,16Z"
-};
-
 // import("./animations/**/*.js") in src/icon-room-card.js
 var globImport_animations_js = __glob({
   "./animations/blink.js": () => Promise.resolve().then(() => (init_blink(), blink_exports)),
@@ -1209,12 +1204,6 @@ var IconRoomCard = class extends LitEl {
     const s = String(state).toLowerCase();
     return s === "on" || s === "home" || s === "present" || s === "detected" || s === "true" || s === "occupied";
   }
-  _getSvgPath(icon) {
-    if (!icon) return mdiPaths.mdiHelp;
-    const camel = icon.replace("mdi:", "").replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-    const key = "mdi" + camel.charAt(0).toUpperCase() + camel.slice(1);
-    return mdiPaths[key] || mdiPaths.mdiHelp;
-  }
   _showMoreInfo(entityId) {
     this.dispatchEvent(
       new CustomEvent("hass-more-info", {
@@ -1381,8 +1370,8 @@ var IconRoomCard = class extends LitEl {
       font-weight:${titleStyle.weight};
       text-transform:${titleStyle.uppercase ? "uppercase" : "none"};
       ${titleStyle.max_width ? `max-width:${titleStyle.max_width};` : ""}
-    margin-left:${titleStyle.offset_x || 0}px;
-    margin-top:${titleStyle.offset_y || 0}px;
+      margin-left:${titleStyle.offset_x || 0}px;
+      margin-top:${titleStyle.offset_y || 0}px;
     `;
     const titleTextInline = `
       ${titleStyle.nowrap ? "white-space:nowrap;" : ""}
@@ -1395,19 +1384,19 @@ var IconRoomCard = class extends LitEl {
     return html`
       <style>${animationCss}</style>
 
-        <ha-card
+      <ha-card
         class="wrap"
         style="
-            background:${card.bg};
-            border-radius:${card.radius};
-            border-style: solid;
-            border-width:${card.border};
-            border-color:${card.border_color};
-            box-shadow:${card.shadow};
-            ${card.min_height ? `min-height:${card.min_height};` : ""}
-            ${card.height ? `height:${card.height};` : ""}
+          background:${card.bg};
+          border-radius:${card.radius};
+          border-style: solid;
+          border-width:${card.border};
+          border-color:${card.border_color};
+          box-shadow:${card.shadow};
+          ${card.min_height ? `min-height:${card.min_height};` : ""}
+          ${card.height ? `height:${card.height};` : ""}
         "
-        >
+      >
 
         ${bubble.enabled ? html`
               <div
@@ -1421,18 +1410,15 @@ var IconRoomCard = class extends LitEl {
                 @click=${(e) => this._performBubbleAction(e)}
                 title="${bubble.action === "navigate" ? bubble.navigate_path || "" : bubble.more_info_entity || ""}"
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  class="main_icon"
+                <ha-icon
+                  icon="${bubble.icon}"
                   style="
-                    width:${bubble.icon_size}px;
-                    height:${bubble.icon_size}px;
-                    fill:${bubble.icon_color};
+                    --mdc-icon-size:${bubble.icon_size}px;
+                    color:${bubble.icon_color};
                     opacity:${bubble.icon_opacity};
                   "
-                >
-                  <path d="${this._getSvgPath(bubble.icon)}"></path>
-                </svg>
+                  class="main_icon"
+                ></ha-icon>
 
                 ${pres.hidden ? "" : html`
                       <div
@@ -1491,18 +1477,17 @@ var IconRoomCard = class extends LitEl {
       }
       const unit = item.unit ?? "";
       return html`
-                <div
-                    class="tr-pill"
-                    style="
-                    background:${item.bg};
-                    border-radius:${item.radius}px;
-                    padding:${item.padding};
-                    gap:${topRight.gap}px;
-                    "
-                    @click=${moreInfoEntity ? () => this._showMoreInfo(moreInfoEntity) : null}
-                    title="${moreInfoEntity || entityId || ""}"
-                >
-
+                    <div
+                      class="tr-pill"
+                      style="
+                        background:${item.bg};
+                        border-radius:${item.radius}px;
+                        padding:${item.padding};
+                        gap:${topRight.gap}px;
+                      "
+                      @click=${moreInfoEntity ? () => this._showMoreInfo(moreInfoEntity) : null}
+                      title="${moreInfoEntity || entityId || ""}"
+                    >
                       ${item.icon ? html`
                             <ha-icon
                               icon="${item.icon}"
@@ -1536,19 +1521,16 @@ var IconRoomCard = class extends LitEl {
             ${titleStyle.hidden ? "" : html`
                   <div class="name" style="${titleInline}">
                     ${titleStyle.icon ? html`
-                          <svg
-                            viewBox="0 0 24 24"
-                            class="title-icon"
+                          <ha-icon
+                            icon="${titleStyle.icon}"
                             style="
-                              width:${titleStyle.icon_size}px;
-                              height:${titleStyle.icon_size}px;
-                              fill:${titleStyle.icon_color};
+                              --mdc-icon-size:${titleStyle.icon_size}px;
+                              color:${titleStyle.icon_color};
                               margin-right:${titleStyle.gap}px;
                               flex-shrink:0;
                             "
-                          >
-                            <path d="${this._getSvgPath(titleStyle.icon)}"></path>
-                          </svg>
+                            class="title-icon"
+                          ></ha-icon>
                         ` : ""}
 
                     <span class="title-text" style="${titleTextInline}">${titleText}</span>
@@ -1626,11 +1608,11 @@ var IconRoomCard = class extends LitEl {
             </div>
           </div>
 
-        <div
+          <div
             class="grid"
             style="
-                margin-left: calc(${rightStart} + ${layout.chips_gutter}px);
-                padding-top:${layout.right_top_padding}px;
+              margin-left: calc(${rightStart} + ${layout.chips_gutter}px);
+              padding-top:${layout.right_top_padding}px;
               grid-template-columns: repeat(${grid.columns}, max-content);
               column-gap:${grid.col_gap}px;
               row-gap:${grid.row_gap}px;
@@ -1669,20 +1651,19 @@ var IconRoomCard = class extends LitEl {
       const iconSz = device.icon_size ?? deviceStyle.icon_size;
       if (isSpacer) {
         return html`
-                    <div class="grid-item">
-                        <div
-                        class="chip spacer"
-                        style="
-                            width:${chipSize}px;
-                            height:${chipSize}px;
-                            padding:${chipPad}px;
-                            --room-icon-size:${iconSz}px;
-                        "
-                        ></div>
-                        ${/* si querés que nunca reserve alto de nombre, no renderices chip-name */
-        ""}
-                    </div>
-                    `;
+                  <div class="grid-item">
+                    <div
+                      class="chip spacer"
+                      style="
+                        width:${chipSize}px;
+                        height:${chipSize}px;
+                        padding:${chipPad}px;
+                        --room-icon-size:${iconSz}px;
+                      "
+                    ></div>
+                    ${""}
+                  </div>
+                `;
       }
       const showName = device.show_name ?? cfg.show_names;
       return html`
@@ -1700,17 +1681,14 @@ var IconRoomCard = class extends LitEl {
                     @click=${(e) => this._performAction(e, finalDevice)}
                     title="${device.name ?? ""}"
                   >
-                    <svg
-                      viewBox="0 0 24 24"
-                      class="chip-svg"
+                    <ha-icon
+                      icon="${device.icon}"
                       style="
-                        fill:${iconColor};
-                        width:var(--room-icon-size);
-                        height:var(--room-icon-size);
+                        --mdc-icon-size:${iconSz}px;
+                        color:${iconColor};
                       "
-                    >
-                      <path d="${this._getSvgPath(device.icon)}"></path>
-                    </svg>
+                      class="chip-svg"
+                    ></ha-icon>
                   </div>
 
                   ${showName ? html`<div class="chip-name">${device.name ?? ""}</div>` : ""}
@@ -1846,14 +1824,14 @@ var IconRoomCard = class extends LitEl {
         align-items: center;
         gap: 6px;
       }
-    .chip.spacer {
+
+      .chip.spacer {
         background: transparent !important;
         border: 0 !important;
         box-shadow: none !important;
         cursor: default !important;
         pointer-events: none !important;
-    }
-
+      }
 
       .chip {
         border-radius: 9999px;
@@ -1867,7 +1845,6 @@ var IconRoomCard = class extends LitEl {
         overflow: visible;
         box-sizing: border-box;
       }
-
 
       .chip-name {
         font-size: 11px;

@@ -3,9 +3,22 @@
   "private": true,
   "version": "0.1.0",
   "devDependencies": {
-    "esbuild": "^0.25.0"
+    "esbuild": "^0.25.12"
   },
   "scripts": {
     "build": "esbuild src/index.js --bundle --format=esm --target=es2020 --outfile=dist/mj-cards.js"
-  }
+  },
+  "description": "A collection of custom Lovelace cards for Home Assistant, bundled into a single resource with shared animations and utilities.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdjuarez/mj-cards.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/mdjuarez/mj-cards/issues"
+  },
+  "homepage": "https://github.com/mdjuarez/mj-cards#readme"
 }
