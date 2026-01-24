@@ -5,7 +5,8 @@ A collection of custom Lovelace cards for Home Assistant, bundled into a single 
 
 All your devices in one Dashboard
 
-<img width="258" height="205" alt="Screenshot 2026-01-24 at 8 02 49 PM" src="https://github.com/user-attachments/assets/58ebd116-5899-44d3-b01b-fb352fed003a" />
+<img width="258" height="205" alt="Screenshot 2026-01-24 at 8 04 49 PM" src="https://github.com/user-attachments/assets/ebb202b0-10e8-45eb-aa42-9fdd15c000fe" />
+
 
 Documentation in English (soon)
 
