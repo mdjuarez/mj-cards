@@ -1,4 +1,3 @@
-que te parece asi? # Icon Room Card 
 
 El objetivo es consolidar la mayoría de las funciones en un único dashboard.
 
@@ -1221,3 +1220,4 @@ O para abrir “Más información” de una entidad específica:
       action: more-info
       more_info_entity: light.luz_principal
 ```
+
