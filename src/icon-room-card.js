@@ -1009,11 +1009,24 @@ class IconRoomCard extends LitEl {
         position: absolute;
         left: 0;
         bottom: 0;
-        border-radius: 500px;
+        border-radius: 50% !important; /* Aseguramos círculo perfecto */
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 0;
+        z-index: 1; /* Un poco más arriba para que nada lo tape */
+        cursor: pointer;
+        transition: transform 0.1s ease-in-out, background-color 0.2s;
+        pointer-events: auto; /* Forzamos que capture el click */
+      }
+
+      /* Efecto visual de feedback al hacer click */
+      .img_cell:active {
+        transform: scale(0.95);
+        filter: brightness(0.9);
+      }
+
+      .main_icon {
+        pointer-events: none; /* El icono no captura el click, lo hace el contenedor grande */
       }
 
       .presence-badge {
