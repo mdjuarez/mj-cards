@@ -1013,7 +1013,7 @@ class IconRoomCard extends LitEl {
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 1; /* Un poco más arriba para que nada lo tape */
+        z-index: 2; /* Un poco más arriba para que nada lo tape */
         cursor: pointer;
         transition: transform 0.1s ease-in-out, background-color 0.2s;
         pointer-events: auto; /* Forzamos que capture el click */
